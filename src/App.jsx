@@ -335,7 +335,7 @@ export default function App() {
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
                 style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '100px', border: '1px solid rgba(16,185,129,0.25)', background: 'rgba(16,185,129,0.05)', marginBottom: '2rem' }}>
                 <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', animation: 'pulse-glow 2s infinite' }} />
-                <span style={{ fontSize: '11px', fontWeight: 700, color: '#10b981', letterSpacing: '0.12em', textTransform: 'uppercase' }}>Recherche de stage — Full Stack</span>
+                <span style={{ fontSize: '11px', fontWeight: 700, color: '#10b981', letterSpacing: '0.12em', textTransform: 'uppercase' }}> À la recherche d’un Stage d'été  en développement Full Stack ou en Intelligence Artificielle </span>
               </motion.div>
 
               <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
@@ -346,13 +346,10 @@ export default function App() {
 
               <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
                 style={{ fontSize: '1.15rem', fontWeight: 300, color: d ? '#888' : '#666', marginBottom: '1rem', letterSpacing: '0.01em' }}>
-                Étudiant Ingénieur en Informatique &amp; Réseaux
+                Étudiant Ingénieur en Informatique &amp; Réseaux -
+                Passionné Par L'intelligence Artificielle 
               </motion.p>
-              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
-                style={{ fontSize: '1rem', color: d ? '#555' : '#777', lineHeight: 1.7, maxWidth: '480px', marginBottom: '2.5rem' }}>
-                Architecte de solutions numériques, spécialisé en développement Full Stack et Intelligence Artificielle. Passionné par la création d'expériences performantes et innovantes.
-              </motion.p>
-
+             
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
                 style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                 <motion.a whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} href="#projects"
@@ -398,16 +395,18 @@ export default function App() {
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
               <SectionLabel>À Propos</SectionLabel>
               <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: '1.5rem', lineHeight: 1.1 }}>
-                Profil <span style={{ color: '#10b981' }}>Professionnel</span>
+               Mon <span style={{ color: '#10b981' }}>Profil</span>
               </h2>
               <p style={{ fontSize: '1.05rem', color: d ? '#666' : '#777', lineHeight: 1.8, marginBottom: '2rem' }}>
-                Étudiant ingénieur en 3ᵉ année en Informatique, je suis animé par la volonté de transformer des idées complexes en solutions logicielles élégantes. Mon approche combine rigueur algorithmique et créativité technologique.
+               Étudiant ingénieur en troisième année en Informatique et Réseaux , motivé par le développement d’applications
+                web innovantes et l'intelligence artificielle . Doté d’un fort esprit de résolution de problèmes et d’un sens du travail
+              en équipe . Actuellement à la recherche d’un stage en développement Full Stack à partir du 1 er juillet 2026 .
               </p>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 {[
                   { icon: MapPin, label: 'Localisation', value: 'Marrakech, Maroc' },
-                  { icon: Calendar, label: 'Disponibilité', value: '1er Juillet 2026' },
-                  { icon: Code2, label: 'Spécialité', value: 'Web & IA' },
+                  { icon: Calendar, label: 'Disponibilité', value: ' À partir du 1 er Juillet 2026' },
+                  { icon: Calendar, label: 'Mobilité', value: ' National ' },
                   { icon: Globe, label: 'Langues', value: 'AR · FR · EN' }
                 ].map(({ icon: Icon, label, value }, i) => (
                   <div key={i} style={{ padding: '1rem 1.25rem', borderRadius: '14px', background: d ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)', border: d ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(0,0,0,0.06)' }}>
@@ -425,9 +424,9 @@ export default function App() {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 {[
                   { val: '3+', label: "Années d'études", accent: true },
-                  { val: '10+', label: 'Projets réalisés', accent: false },
+                  { val: '6+', label: 'Projets réalisés', accent: false },
                   { val: '7+', label: 'Langages maîtrisés', accent: false },
-                  { val: '4', label: 'Certificats obtenus', accent: true },
+                  { val: '6', label: 'Certificats obtenus', accent: true },
                 ].map(({ val, label, accent }, i) => (
                   <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
                     style={{ padding: '2rem', borderRadius: '20px', background: accent ? 'rgba(16,185,129,0.06)' : d ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)', border: accent ? '1px solid rgba(16,185,129,0.15)' : d ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(0,0,0,0.06)', textAlign: 'center' }}>
