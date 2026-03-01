@@ -8,8 +8,7 @@ npm run dev
 ```
 
 
-## 🛠️ Technologies
-
+##  Tec used 
 - React  
 - Tailwind CSS 
 - Framer Motion

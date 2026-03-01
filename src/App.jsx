@@ -338,7 +338,9 @@ export default function App() {
       </nav>
 
       <main>
-        {/* ── HERO ── */}
+     
+
+{/* ── HERO ── */}
         <section id="home" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: '68px', padding: '68px 2rem 0', overflow: 'hidden', position: 'relative' }}>
           {/* Background grid */}
           <div style={{ position: 'absolute', inset: 0, backgroundImage: d ? 'radial-gradient(circle at 1px 1px, rgba(16,185,129,0.06) 1px, transparent 0)' : 'radial-gradient(circle at 1px 1px, rgba(16,185,129,0.08) 1px, transparent 0)', backgroundSize: '40px 40px', pointerEvents: 'none' }} />
@@ -346,7 +348,33 @@ export default function App() {
           <div style={{ position: 'absolute', top: '20%', right: '-10%', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 70%)', pointerEvents: 'none', animation: 'pulse-glow 4s ease-in-out infinite' }} />
 
           <div style={{ maxWidth: '1280px', width: '100%', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }}>
-            <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, ease: 'easeOut' }}>
+            
+            {/* Hero visual (NOW ON THE LEFT) */}
+            <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease: 'easeOut' }}
+              style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
+              <div style={{ position: 'absolute', inset: '-2rem', background: 'radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%)', animation: 'pulse-glow 3s ease-in-out infinite', pointerEvents: 'none' }} />
+              <div style={{ position: 'relative', width: '100%', maxWidth: '420px', aspectRatio: '4/5', borderRadius: '28px', overflow: 'hidden', border: d ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.08)' }}>
+                <img src="/Pic/My_pic.jpg" alt="Yassine Hajib"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(30%)' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(8,8,8,0.6) 0%, transparent 50%)' }} />
+              </div>
+              {/* Floating badge */}
+              <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                style={{ position: 'absolute', bottom: '-1.5rem', right: '-1.5rem', padding: '1rem 1.5rem', background: d ? 'rgba(15,15,15,0.95)' : 'rgba(255,255,255,0.95)', backdropFilter: 'blur(20px)', borderRadius: '18px', border: d ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.08)', boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{ padding: '10px', borderRadius: '12px', background: 'rgba(16,185,129,0.1)' }}>
+                    <Code2 size={22} style={{ color: '#10b981' }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 900, color: '#10b981', letterSpacing: '-0.02em' }}> FULL STACK Developer</div>
+                    <div style={{ fontSize: '10px', fontWeight: 700, color: d ? '#f3f3f3' : '#030303', letterSpacing: '0.15em', textTransform: 'uppercase' }}>AI enthusiast </div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Text Section (NOW ON THE RIGHT) */}
+            <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, ease: 'easeOut' }}>
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
                 style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '100px', border: '1px solid rgba(16,185,129,0.25)', background: 'rgba(16,185,129,0.05)', marginBottom: '2rem' }}>
                 <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', animation: 'pulse-glow 2s infinite' }} />
@@ -364,7 +392,7 @@ export default function App() {
                 Étudiant Ingénieur en Informatique &amp; Réseaux -
                 Passionné Par L'intelligence Artificielle 
               </motion.p>
-             
+              
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
                 style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                 <motion.a whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} href="#projects"
@@ -372,37 +400,15 @@ export default function App() {
                   Voir mes Projets <ChevronRight size={16} />
                 </motion.a>
                 <motion.a whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} href="#contact" 
-                  style={{ display: 'inline-flex', scrollBehavior:'smooth', alignItems: 'center', gap: '8px', padding: '14px 28px', background: 'transparent', color: d ? '#ccc' : '#333', borderRadius: '14px', fontWeight: 700, fontSize: '14px', textDecoration: 'none', letterSpacing: '0.02em', border: d ? '1px solid rgba(255,255,255,0.1 ,)' : '1px solid rgba(0,0,0,0.12)' }}>
+                  style={{ display: 'inline-flex', scrollBehavior:'smooth', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#f0eeee', color: d ? '#407a67' : '#333', borderRadius: '14px', fontWeight: 700, fontSize: '14px', textDecoration: 'none', letterSpacing: '0.02em', border: d ? '1px solid rgba(255,255,255,0.1 ,)' : '1px solid rgba(0,0,0,0.12)' }}>
                   Me Contacter <Mail size={16} />
                 </motion.a>
               </motion.div>
             </motion.div>
 
-            {/* Hero visual */}
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: 'easeOut' }}
-              style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
-              <div style={{ position: 'absolute', inset: '-2rem', background: 'radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%)', animation: 'pulse-glow 3s ease-in-out infinite', pointerEvents: 'none' }} />
-              <div style={{ position: 'relative', width: '100%', maxWidth: '420px', aspectRatio: '4/5', borderRadius: '28px', overflow: 'hidden', border: d ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.08)' }}>
-                <img src="https://picsum.photos/seed/yassine-portrait/840/1050" alt="Yassine Hajib"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(30%)' }} />
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(8,8,8,0.6) 0%, transparent 50%)' }} />
-              </div>
-              {/* Floating badge */}
-              <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ position: 'absolute', bottom: '-1.5rem', left: '-1.5rem', padding: '1rem 1.5rem', background: d ? 'rgba(15,15,15,0.95)' : 'rgba(255,255,255,0.95)', backdropFilter: 'blur(20px)', borderRadius: '18px', border: d ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.08)', boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div style={{ padding: '10px', borderRadius: '12px', background: 'rgba(16,185,129,0.1)' }}>
-                    <Code2 size={22} style={{ color: '#10b981' }} />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '1.1rem', fontWeight: 900, color: '#10b981', letterSpacing: '-0.02em' }}> FULL STACK Developer</div>
-                    <div style={{ fontSize: '10px', fontWeight: 700, color: d ? '#7f7c7c' : '#888', letterSpacing: '0.15em', textTransform: 'uppercase' }}>AI enthusiast </div>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
           </div>
         </section>
+
 
         {/* ── ABOUT ── */}
         <section id="about" style={{ padding: '8rem 2rem', background: d ? 'rgba(255,255,255,0.015)' : 'rgba(0,0,0,0.02)' }}>
@@ -600,7 +606,7 @@ export default function App() {
               <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: '6px' }}>
                 Mes <span style={{ color: '#10b981' }}>Certificats</span>
               </h2>
-              <p style={{ fontSize: '13px', color: d ? '#444' : '#999', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Cliquez pour afficher le certificat</p>
+              <p style={{ fontSize: '13px', color: d ? '#bab5b5' : '#999', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Cliquez pour afficher le certificat</p>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '1.25rem' }}>
               {CERTIFICATES.map((cert, idx) => (
