@@ -395,8 +395,8 @@ export default function App() {
                     <Code2 size={22} style={{ color: '#10b981' }} />
                   </div>
                   <div>
-                    <div style={{ fontSize: '1.1rem', fontWeight: 900, color: '#10b981', letterSpacing: '-0.02em' }}>FULL STACK</div>
-                    <div style={{ fontSize: '10px', fontWeight: 700, color: d ? '#555' : '#888', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Engineering Student</div>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 900, color: '#10b981', letterSpacing: '-0.02em' }}> FULL STACK Developer</div>
+                    <div style={{ fontSize: '10px', fontWeight: 700, color: d ? '#7f7c7c' : '#888', letterSpacing: '0.15em', textTransform: 'uppercase' }}>AI enthusiast </div>
                   </div>
                 </div>
               </motion.div>
