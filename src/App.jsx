@@ -45,7 +45,7 @@ const PROJECTS = [
 const SKILLS = [
   { category: "Langages", items: ["Python", "Java", "C", "C++", "JavaScript", "PHP"], icon: Terminal },
   { category: "Web & Mobile", items: ["React", "Laravel", "Flutter", "HTML", "CSS"], icon: Globe },
-  { category: "Backend & API", items: ["FastAPI", "RESTful APIs", "Pydantic", "Async"], icon: Layers },
+  { category: "Backend & API", items: ["FastAPI", "RESTful APIs", "Pydantic"], icon: Layers },
   { category: "Bases de données", items: ["MySQL", "Oracle", "SQL Server", "PostgreSQL"], icon: Database },
   { category: "Outils & OS", items: ["Git", "GitHub", "Linux", "Windows"], icon: Code2 },
   { category: "Intelligence Artificielle", items: ["NLP", "RAG", "Vector Embedding", "LLM Integration"], icon: Layers },
@@ -76,7 +76,7 @@ const CERTIFICATES = [
     title: "Introduction à la programmation orientée objet (C++)",
     issuer: "EPFL",
     image: "/certificates/Poo.png",
-    year: "2024",
+    year: "2025",
     accentColor: "#ef4444",
     bg: "rgba(239,68,68,0.08)"
   },
@@ -85,7 +85,7 @@ const CERTIFICATES = [
     issuer: "IBM",
     image: "/certificates/Python_IA_Datascience.png",
     year: "2024",
-    accentColor: "#3b82f6",
+    accentColor : " #0fe016",
     bg: "rgba(59,130,246,0.08)"
   },
   {
@@ -93,19 +93,34 @@ const CERTIFICATES = [
     issuer: "Google",
     image: "/certificates/Git&GitHub.png",
     year: "2024",
-    accentColor: "#10b981",
+    accentColor: "#b91010",
     bg: "rgba(16,185,129,0.08)"
   },
   {
     title: "The Unix Workbench",
     issuer: "Johns Hopkins University",
     image: "/certificates/Unix.png",
+    year: "2025",
+    accentColor : " #0fe016",
+    bg: "rgba(139,92,246,0.08)"
+  },
+  {
+    title: "Gitex Masterclasses 2024 ",
+    issuer: "Gitex ",
+    image: "/certificates/Gitex.png",
     year: "2024",
-    accentColor: "#8b5cf6",
+    accentColor: "#e80a51",
+    bg: "rgba(139,92,246,0.08)",
+  } ,
+  {
+    title: "Front End ",
+    issuer: "Johns Hopkins University",
+    image: "/certificates/Front.jpg",
+    year: "2024",
+    accentColor : " #0fe016",
     bg: "rgba(139,92,246,0.08)"
   }
 ];
-
  
 function CertificateModal({ cert, onClose }) {
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -297,7 +312,7 @@ export default function App() {
         <div style={{ maxWidth: '1280px', width: '100%', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <motion.a href="#home" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
             style={{ fontFamily: "'Space Mono', monospace", fontWeight: 700, fontSize: '1.1rem', letterSpacing: '-0.03em', textDecoration: 'none', color: 'inherit' }}>
-            YASSINE<span style={{ color: '#10b981' }}>.HAJIB</span>
+            YASSINE<span style={{ color: '#10b981' }}> HAJIB</span>
           </motion.a>
 
           {/* Desktop nav */}
@@ -356,8 +371,8 @@ export default function App() {
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#10b981', color: '#fff', borderRadius: '14px', fontWeight: 700, fontSize: '14px', textDecoration: 'none', letterSpacing: '0.02em', boxShadow: '0 8px 30px rgba(16,185,129,0.25)' }}>
                   Voir mes Projets <ChevronRight size={16} />
                 </motion.a>
-                <motion.a whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} href="mailto:yassinehajib.work@gmail.com"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: 'transparent', color: d ? '#ccc' : '#333', borderRadius: '14px', fontWeight: 700, fontSize: '14px', textDecoration: 'none', letterSpacing: '0.02em', border: d ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.12)' }}>
+                <motion.a whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} href="#contact" 
+                  style={{ display: 'inline-flex', scrollBehavior:'smooth', alignItems: 'center', gap: '8px', padding: '14px 28px', background: 'transparent', color: d ? '#ccc' : '#333', borderRadius: '14px', fontWeight: 700, fontSize: '14px', textDecoration: 'none', letterSpacing: '0.02em', border: d ? '1px solid rgba(255,255,255,0.1 ,)' : '1px solid rgba(0,0,0,0.12)' }}>
                   Me Contacter <Mail size={16} />
                 </motion.a>
               </motion.div>
@@ -406,7 +421,7 @@ export default function App() {
                 {[
                   { icon: MapPin, label: 'Localisation', value: 'Marrakech, Maroc' },
                   { icon: Calendar, label: 'Disponibilité', value: ' À partir du 1 er Juillet 2026' },
-                  { icon: Calendar, label: 'Mobilité', value: ' National ' },
+                  { icon: Calendar, label: 'Mobilité', value: ' National '},
                   { icon: Globe, label: 'Langues', value: 'AR · FR · EN' }
                 ].map(({ icon: Icon, label, value }, i) => (
                   <div key={i} style={{ padding: '1rem 1.25rem', borderRadius: '14px', background: d ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)', border: d ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(0,0,0,0.06)' }}>
@@ -426,7 +441,7 @@ export default function App() {
                   { val: '3+', label: "Années d'études", accent: true },
                   { val: '6+', label: 'Projets réalisés', accent: false },
                   { val: '7+', label: 'Langages maîtrisés', accent: false },
-                  { val: '6', label: 'Certificats obtenus', accent: true },
+                  { val: '6+', label: 'Certificats obtenus', accent: true },
                 ].map(({ val, label, accent }, i) => (
                   <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
                     style={{ padding: '2rem', borderRadius: '20px', background: accent ? 'rgba(16,185,129,0.06)' : d ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)', border: accent ? '1px solid rgba(16,185,129,0.15)' : d ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(0,0,0,0.06)', textAlign: 'center' }}>
