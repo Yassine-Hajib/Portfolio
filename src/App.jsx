@@ -1,3 +1,4 @@
+import emailjs from '@emailjs/browser';
 import { useState, useEffect } from 'react';
 import {
   Github, Linkedin, Mail, ExternalLink, Code2, Database,
@@ -242,6 +243,8 @@ export default function App() {
   const [selectedCert, setSelectedCert] = useState(null);
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [menuOpen, setMenuOpen] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const d = isDark;
 
@@ -266,11 +269,30 @@ export default function App() {
   }, [selectedCert]);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const subject = `Portfolio Contact — ${form.name}`;
-    const body = `Nom: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`;
-    window.location.href = `mailto:yassinehajib.work@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  };
+  e.preventDefault();
+  setSending(true);
+
+  emailjs.send(
+    'service_1qgw3ve',   // ← paste your Service ID here
+    'template_06tfxch',  // ← paste your Template ID here
+    {
+      from_name: form.name,
+      from_email: form.email,
+      message: form.message,
+    },
+    '98oKQuTZPiWctyVMQ'    // ← paste your Public Key here
+  )
+  .then(() => {
+    setSent(true);
+    setSending(false);
+    setForm({ name: '', email: '', message: '' });
+  })
+  .catch((err) => {
+    console.error('EmailJS error:', err);
+    setSending(false);
+    alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+  });
+};
 
   const navItems = [
     { id: 'home', label: 'Accueil' },
@@ -687,35 +709,76 @@ export default function App() {
 
               {/* Form */}
               <div style={{ padding: '2.5rem', borderRadius: '24px', background: d ? 'rgba(255,255,255,0.025)' : '#fff', border: d ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(0,0,0,0.07)' }}>
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                    {[
-                      { id: 'name', label: 'Nom Complet', type: 'text', placeholder: 'Votre nom…' },
-                      { id: 'email', label: 'Adresse Email', type: 'email', placeholder: 'vous@email.com' }
-                    ].map(({ id, label, type, placeholder }) => (
-                      <div key={id} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        <label style={{ fontSize: '10px', fontWeight: 800, color: d ? '#444' : '#aaa', letterSpacing: '0.15em', textTransform: 'uppercase' }}>{label}</label>
-                        <input required type={type} value={form[id]} onChange={e => setForm({ ...form, [id]: e.target.value })} placeholder={placeholder}
-                          style={{ padding: '14px 16px', borderRadius: '12px', background: d ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)', border: d ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.08)', color: 'inherit', fontSize: '14px', fontWeight: 500, outline: 'none', fontFamily: 'inherit', transition: 'border 0.2s' }}
-                          onFocus={e => e.target.style.borderColor = 'rgba(16,185,129,0.5)'}
-                          onBlur={e => e.target.style.borderColor = d ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)'} />
-                      </div>
-                    ))}
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <label style={{ fontSize: '10px', fontWeight: 800, color: d ? '#444' : '#aaa', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Message</label>
-                    <textarea required rows={5} value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} placeholder="Comment puis-je vous aider ?"
-                      style={{ padding: '14px 16px', borderRadius: '12px', background: d ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)', border: d ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.08)', color: 'inherit', fontSize: '14px', fontWeight: 500, outline: 'none', resize: 'none', fontFamily: 'inherit', transition: 'border 0.2s' }}
-                      onFocus={e => e.target.style.borderColor = 'rgba(16,185,129,0.5)'}
-                      onBlur={e => e.target.style.borderColor = d ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)'} />
-                  </div>
-                  <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit"
-                    style={{ padding: '16px', borderRadius: '14px', background: '#10b981', color: '#fff', fontWeight: 800, fontSize: '14px', letterSpacing: '0.08em', textTransform: 'uppercase', border: 'none', cursor: 'pointer', boxShadow: '0 8px 24px rgba(16,185,129,0.25)', transition: 'background 0.2s' }}
-                    onMouseEnter={e => e.currentTarget.style.background = '#059669'}
-                    onMouseLeave={e => e.currentTarget.style.background = '#10b981'}>
-                    Envoyer le Message →
-                  </motion.button>
-                </form>
+        {sent ? (
+  /* ── Thank you screen ── */
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: '300px', textAlign: 'center', gap: '1.5rem' }}>
+    <motion.div
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+      style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(16,185,129,0.12)', border: '2px solid rgba(16,185,129,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+    >
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </motion.div>
+    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+      <h3 style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '0.5rem', color: '#10b981' }}>Message envoyé !</h3>
+      <p style={{ color: d ? '#666' : '#888', fontSize: '15px', lineHeight: 1.6, maxWidth: '320px' }}>
+        Merci <strong style={{ color: d ? '#ccc' : '#333' }}>{form.name || 'pour votre message'}</strong> ! Je vous répondrai dans les plus brefs délais.
+      </p>
+    </motion.div>
+    <motion.button
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
+      whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+      onClick={() => setSent(false)}
+      style={{ padding: '10px 24px', borderRadius: '10px', background: 'rgba(16,185,129,0.1)', color: '#10b981', border: '1px solid rgba(16,185,129,0.25)', cursor: 'pointer', fontWeight: 700, fontSize: '13px', letterSpacing: '0.05em', fontFamily: 'inherit' }}
+    >
+      Envoyer un autre message
+    </motion.button>
+  </div>
+) : (
+  /* ── Form ── */
+  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+      {[
+        { id: 'name', label: 'Nom Complet', type: 'text', placeholder: 'Votre nom…' },
+        { id: 'email', label: 'Adresse Email', type: 'email', placeholder: 'vous@email.com' }
+      ].map(({ id, label, type, placeholder }) => (
+        <div key={id} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <label style={{ fontSize: '10px', fontWeight: 800, color: d ? '#444' : '#aaa', letterSpacing: '0.15em', textTransform: 'uppercase' }}>{label}</label>
+          <input required type={type} value={form[id]} onChange={e => setForm({ ...form, [id]: e.target.value })} placeholder={placeholder}
+            style={{ padding: '14px 16px', borderRadius: '12px', background: d ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)', border: d ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.08)', color: 'inherit', fontSize: '14px', fontWeight: 500, outline: 'none', fontFamily: 'inherit', transition: 'border 0.2s' }}
+            onFocus={e => e.target.style.borderColor = 'rgba(16,185,129,0.5)'}
+            onBlur={e => e.target.style.borderColor = d ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)'} />
+        </div>
+      ))}
+    </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <label style={{ fontSize: '10px', fontWeight: 800, color: d ? '#444' : '#aaa', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Message</label>
+      <textarea required rows={5} value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} placeholder="Comment puis-je vous aider ?"
+        style={{ padding: '14px 16px', borderRadius: '12px', background: d ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)', border: d ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.08)', color: 'inherit', fontSize: '14px', fontWeight: 500, outline: 'none', resize: 'none', fontFamily: 'inherit', transition: 'border 0.2s' }}
+        onFocus={e => e.target.style.borderColor = 'rgba(16,185,129,0.5)'}
+        onBlur={e => e.target.style.borderColor = d ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)'} />
+    </div>
+    <motion.button
+      whileHover={{ scale: sending ? 1 : 1.02 }}
+      whileTap={{ scale: sending ? 1 : 0.98 }}
+      type="submit"
+      disabled={sending}
+      style={{ padding: '16px', borderRadius: '14px', background: sending ? '#059669aa' : '#10b981', color: '#fff', fontWeight: 800, fontSize: '14px', letterSpacing: '0.08em', textTransform: 'uppercase', border: 'none', cursor: sending ? 'not-allowed' : 'pointer', boxShadow: '0 8px 24px rgba(16,185,129,0.25)', transition: 'background 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
+      onMouseEnter={e => { if (!sending) e.currentTarget.style.background = '#059669'; }}
+      onMouseLeave={e => { if (!sending) e.currentTarget.style.background = '#10b981'; }}
+    >
+      {sending ? (
+        <>
+          <div style={{ width: '16px', height: '16px', borderRadius: '50%', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', animation: 'spin 0.7s linear infinite' }} />
+          Envoi en cours…
+        </>
+      ) : 'Envoyer le Message →'}
+    </motion.button>
+  </form>
+)}
               </div>
             </div>
           </div>
@@ -728,7 +791,7 @@ export default function App() {
           <div style={{ fontFamily: "'Space Mono', monospace", fontWeight: 700, letterSpacing: '-0.02em' }}>
             YASSINE<span style={{ color: '#10b981' }}>.HAJIB</span>
           </div>
-          <div style={{ fontSize: '12px', fontWeight: 600, color: d ? '#333' : '#bbb', letterSpacing: '0.05em' }}>
+          <div style={{ fontSize: '12px', fontWeight: 600, color: d ? '#796f6f' : '#bbb', letterSpacing: '0.05em' }}>
             © {new Date().getFullYear()} Yassine Hajib — Tous droits réservés
           </div>
           <div style={{ display: 'flex', gap: '1rem' }}>
