@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import {
   Github, Linkedin, Mail, ExternalLink, Code2, Database,
   Globe, Terminal, ChevronRight, Download, Moon, Sun,
-  Phone, Award, X, ZoomIn, MapPin, Calendar, Layers
+  Phone, Award, X, ZoomIn, MapPin, Calendar, Layers, FileText
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -49,9 +49,9 @@ const SKILLS = [
   { category: "Backend & API", items: ["FastAPI", "RESTful APIs", "Pydantic"], icon: Layers },
   { category: "Bases de données", items: ["SQL","MySQL", "Oracle", "SQL Server", "PostgreSQL"], icon: Database },
   { category: "Outils", items: ["Git", "GitHub"], icon: Code2 },
-  { category: "Intelligence Artificielle", items: ["NLP", " Architecture RAG ", "Vector Embedding", "LLM Integration"], icon: Layers },
+  { category: "Intelligence Artificielle", items: ["NLP", "Architecture RAG", "Vector Embedding", "LLM Integration"], icon: Layers },
   { category: "Conception & Algorithmiques", items: ["UML", "Merise", "Structures de données", "Complexité","Récursivité"], icon: Globe },
-  { category: "Systèmes d'exploitation", items: ["Lunix","Windows"], icon: Code2 }
+  { category: "Systèmes d'exploitation", items: ["Linux","Windows"], icon: Code2 }
 ];
 
 const EDUCATION = [
@@ -64,7 +64,6 @@ const EDUCATION = [
     school: "EMSI — École Marocaine des Sciences de l'Ingénieur",
     degree: "Classes Préparatoires Intégrées",
     period: "2023 — 2025"
-  
   },
   {
     school: "Établissement Wahat Ezzaitoune 2, Marrakech",
@@ -87,7 +86,7 @@ const CERTIFICATES = [
     issuer: "IBM",
     image: "/certificates/Python_IA_Datascience.png",
     year: "2024",
-    accentColor : " #0fe016",
+    accentColor: "#0fe016",
     bg: "rgba(59,130,246,0.08)"
   },
   {
@@ -103,27 +102,105 @@ const CERTIFICATES = [
     issuer: "Johns Hopkins University",
     image: "/certificates/Unix.png",
     year: "2025",
-    accentColor : " #0fe016",
+    accentColor: "#0fe016",
     bg: "rgba(139,92,246,0.08)"
   },
   {
-    title: "Gitex Masterclasses 2024 ",
-    issuer: "Gitex ",
+    title: "Gitex Masterclasses 2024",
+    issuer: "Gitex",
     image: "/certificates/Gitex.png",
     year: "2024",
     accentColor: "#e80a51",
     bg: "rgba(139,92,246,0.08)",
-  } ,
+  },
   {
-    title: "Front End ",
+    title: "Front End",
     issuer: "Johns Hopkins University",
     image: "/certificates/Front.jpg",
     year: "2024",
-    accentColor : " #0fe016",
+    accentColor: "#0fe016",
     bg: "rgba(139,92,246,0.08)"
   }
 ];
- 
+
+// ── CV Modal ──
+function CVModal({ isOpen, onClose }) {
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [isOpen, onClose]);
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+          style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', background: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(20px)' }}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.92, y: 30 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            onClick={(e) => e.stopPropagation()}
+            style={{ width: '100%', maxWidth: '860px', background: '#111', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '28px', overflow: 'hidden', boxShadow: '0 40px 80px rgba(0,0,0,0.7)', display: 'flex', flexDirection: 'column', maxHeight: '92vh' }}
+          >
+            {/* Top accent line */}
+            <div style={{ height: '3px', background: 'linear-gradient(90deg, #10b981, transparent)', flexShrink: 0 }} />
+
+            {/* Header */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.5rem 2rem', borderBottom: '1px solid rgba(255,255,255,0.05)', flexShrink: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <FileText size={22} style={{ color: '#10b981' }} />
+                </div>
+                <div>
+                  <p style={{ fontSize: '10px', letterSpacing: '0.3em', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', marginBottom: '2px' }}>Curriculum Vitae</p>
+                  <h3 style={{ fontSize: '1rem', fontWeight: 800, color: '#fff' }}>Yassine Hajib</h3>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <a
+                  href="/YassineHajib_cv.pdf"
+                  download="Yassine_Hajib_CV.pdf"
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 18px', background: '#10b981', color: '#fff', borderRadius: '10px', fontSize: '12px', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', textDecoration: 'none', transition: 'all 0.2s' }}
+                  onMouseEnter={e => e.currentTarget.style.background = '#059669'}
+                  onMouseLeave={e => e.currentTarget.style.background = '#10b981'}
+                >
+                  <Download size={14} /> Télécharger
+                </a>
+                <button
+                  onClick={onClose}
+                  style={{ padding: '8px', borderRadius: '10px', background: 'rgba(255,255,255,0.05)', border: 'none', cursor: 'pointer', color: '#888', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }}
+                  onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#fff'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = '#888'; }}
+                >
+                  <X size={18} />
+                </button>
+              </div>
+            </div>
+
+            {/* PDF Viewer */}
+            <div style={{ flex: 1, overflow: 'hidden', background: '#0a0a0a', minHeight: '600px' }}>
+              <iframe
+                src="/YassineHajib_cv.pdf#toolbar=0&navpanes=0"
+                style={{ width: '100%', height: '100%', minHeight: '600px', border: 'none' }}
+                title="Yassine Hajib CV"
+              />
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+// ── Certificate Modal ──
 function CertificateModal({ cert, onClose }) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [imgError, setImgError] = useState(false);
@@ -158,10 +235,7 @@ function CertificateModal({ cert, onClose }) {
             onClick={(e) => e.stopPropagation()}
             style={{ width: '100%', maxWidth: '720px', background: '#111', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '28px', overflow: 'hidden', boxShadow: '0 40px 80px rgba(0,0,0,0.6)' }}
           >
-            {/* Top accent line */}
             <div style={{ height: '3px', background: `linear-gradient(90deg, ${cert.accentColor}, transparent)` }} />
-
-            {/* Header */}
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '1.75rem 2rem', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <div style={{ width: '52px', height: '52px', borderRadius: '14px', background: cert.bg, border: `1px solid ${cert.accentColor}22`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
@@ -178,13 +252,9 @@ function CertificateModal({ cert, onClose }) {
                 <X size={18} />
               </button>
             </div>
-
-            {/* Image area */}
             <div style={{ background: '#0a0a0a', minHeight: '360px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', padding: imgError ? '2rem' : '0' }}>
               {!imgError && (
-                <img
-                  src={cert.image}
-                  alt={cert.title}
+                <img src={cert.image} alt={cert.title}
                   onLoad={() => setImgLoaded(true)}
                   onError={() => setImgError(true)}
                   style={{ width: '100%', maxHeight: '52vh', objectFit: 'contain', opacity: imgLoaded ? 1 : 0, transition: 'opacity 0.4s' }}
@@ -197,26 +267,15 @@ function CertificateModal({ cert, onClose }) {
                 </div>
               )}
               {imgError && (
-                <div style={{ width: '100%', maxWidth: '480px', background: 'linear-gradient(135deg, #1a1a1a, #111)', borderRadius: '20px', border: `1px solid ${cert.accentColor}22`, padding: '3rem', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-                  <div style={{ position: 'absolute', top: '12px', left: '12px', width: '24px', height: '24px', borderTop: `2px solid ${cert.accentColor}44`, borderLeft: `2px solid ${cert.accentColor}44`, borderRadius: '4px 0 0 0' }} />
-                  <div style={{ position: 'absolute', top: '12px', right: '12px', width: '24px', height: '24px', borderTop: `2px solid ${cert.accentColor}44`, borderRight: `2px solid ${cert.accentColor}44`, borderRadius: '0 4px 0 0' }} />
-                  <div style={{ position: 'absolute', bottom: '12px', left: '12px', width: '24px', height: '24px', borderBottom: `2px solid ${cert.accentColor}44`, borderLeft: `2px solid ${cert.accentColor}44`, borderRadius: '0 0 0 4px' }} />
-                  <div style={{ position: 'absolute', bottom: '12px', right: '12px', width: '24px', height: '24px', borderBottom: `2px solid ${cert.accentColor}44`, borderRight: `2px solid ${cert.accentColor}44`, borderRadius: '0 0 4px 0' }} />
+                <div style={{ width: '100%', maxWidth: '480px', background: 'linear-gradient(135deg, #1a1a1a, #111)', borderRadius: '20px', border: `1px solid ${cert.accentColor}22`, padding: '3rem', textAlign: 'center' }}>
                   <div style={{ width: '64px', height: '64px', borderRadius: '18px', background: cert.bg, margin: '0 auto 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Award size={32} style={{ color: cert.accentColor }} />
                   </div>
-                  <p style={{ fontSize: '9px', letterSpacing: '0.4em', fontWeight: 800, color: cert.accentColor, textTransform: 'uppercase', marginBottom: '8px' }}>Certificat de Réussite</p>
                   <h4 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#fff', lineHeight: 1.3, marginBottom: '8px' }}>{cert.title}</h4>
-                  <p style={{ color: '#555', fontSize: '13px', fontWeight: 600, marginBottom: '1.5rem' }}>Décerné par <span style={{ color: cert.accentColor }}>{cert.issuer}</span></p>
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 14px', borderRadius: '8px', background: cert.bg, border: `1px solid ${cert.accentColor}33` }}>
-                    <Award size={12} style={{ color: cert.accentColor }} />
-                    <span style={{ fontSize: '10px', fontWeight: 800, color: cert.accentColor, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Officiel · {cert.year}</span>
-                  </div>
+                  <p style={{ color: '#555', fontSize: '13px', fontWeight: 600 }}>Décerné par <span style={{ color: cert.accentColor }}>{cert.issuer}</span></p>
                 </div>
               )}
             </div>
-
-            {/* Footer */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem 2rem', borderTop: '1px solid rgba(255,255,255,0.05)', background: 'rgba(0,0,0,0.2)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: '#555', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
                 <Award size={13} style={{ color: '#10b981' }} />
@@ -226,8 +285,7 @@ function CertificateModal({ cert, onClose }) {
                 style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 16px', background: 'rgba(16,185,129,0.1)', color: '#10b981', borderRadius: '10px', fontSize: '11px', fontWeight: 800, letterSpacing: '0.15em', textTransform: 'uppercase', textDecoration: 'none', border: '1px solid rgba(16,185,129,0.2)', transition: 'all 0.2s' }}
                 onMouseEnter={e => { e.currentTarget.style.background = '#10b981'; e.currentTarget.style.color = '#fff'; }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'rgba(16,185,129,0.1)'; e.currentTarget.style.color = '#10b981'; }}>
-                <Download size={13} />
-                Télécharger
+                <Download size={13} /> Télécharger
               </a>
             </div>
           </motion.div>
@@ -237,13 +295,13 @@ function CertificateModal({ cert, onClose }) {
   );
 }
 
-//Main App
+// ── Main App ──
 export default function App() {
   const [isDark, setIsDark] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
   const [selectedCert, setSelectedCert] = useState(null);
+  const [cvOpen, setCvOpen] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [menuOpen, setMenuOpen] = useState(false);
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
 
@@ -265,35 +323,22 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = selectedCert ? 'hidden' : '';
+    document.body.style.overflow = (selectedCert || cvOpen) ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
-  }, [selectedCert]);
+  }, [selectedCert, cvOpen]);
 
   const handleSubmit = (e) => {
-  e.preventDefault();
-  setSending(true);
-
-  emailjs.send(
-    'service_1qgw3ve',   // ← paste your Service ID here
-    'template_06tfxch',  // ← paste your Template ID here
-    {
-      from_name: form.name,
-      from_email: form.email,
-      message: form.message,
-    },
-    '98oKQuTZPiWctyVMQ'    // ← paste your Public Key here
-  )
-  .then(() => {
-    setSent(true);
-    setSending(false);
-    setForm({ name: '', email: '', message: '' });
-  })
-  .catch((err) => {
-    console.error('EmailJS error:', err);
-    setSending(false);
-    alert('Erreur lors de l\'envoi. Veuillez réessayer.');
-  });
-};
+    e.preventDefault();
+    setSending(true);
+    emailjs.send(
+      'service_1qgw3ve',
+      'template_06tfxch',
+      { from_name: form.name, from_email: form.email, message: form.message },
+      '98oKQuTZPiWctyVMQ'
+    )
+    .then(() => { setSent(true); setSending(false); setForm({ name: '', email: '', message: '' }); })
+    .catch((err) => { console.error('EmailJS error:', err); setSending(false); alert("Erreur lors de l'envoi. Veuillez réessayer."); });
+  };
 
   const navItems = [
     { id: 'home', label: 'Accueil' },
@@ -308,11 +353,9 @@ export default function App() {
   return (
     <div style={{ minHeight: '100vh', background: d ? '#080808' : '#f8f8f8', color: d ? '#e8e8e8' : '#1a1a1a', fontFamily: "'DM Sans', 'Helvetica Neue', sans-serif", transition: 'background 0.4s, color 0.4s' }}>
 
-      {/* Inject keyframes */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,800;0,9..40,900;1,9..40,300&family=Space+Mono:wght@400;700&display=swap');
         @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
         @keyframes pulse-glow { 0%,100% { opacity: 0.4; } 50% { opacity: 0.8; } }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
@@ -321,33 +364,20 @@ export default function App() {
         ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 2px; }
       `}</style>
 
+      <CVModal isOpen={cvOpen} onClose={() => setCvOpen(false)} />
       <CertificateModal cert={selectedCert} onClose={() => setSelectedCert(null)} />
 
       {/* ── NAV ── */}
-      <nav style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-        height: '68px', display: 'flex', alignItems: 'center',
-        padding: '0 2rem',
-        background: d ? 'rgba(8,8,8,0.85)' : 'rgba(248,248,248,0.85)',
-        backdropFilter: 'blur(20px)',
-        borderBottom: d ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(0,0,0,0.06)'
-      }}>
+      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, height: '68px', display: 'flex', alignItems: 'center', padding: '0 2rem', background: d ? 'rgba(8,8,8,0.85)' : 'rgba(248,248,248,0.85)', backdropFilter: 'blur(20px)', borderBottom: d ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(0,0,0,0.06)' }}>
         <div style={{ maxWidth: '1280px', width: '100%', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <motion.a href="#home" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
             style={{ fontFamily: "'Space Mono', monospace", fontWeight: 700, fontSize: '1.1rem', letterSpacing: '-0.03em', textDecoration: 'none', color: 'inherit' }}>
             YASSINE<span style={{ color: '#10b981' }}> HAJIB</span>
           </motion.a>
-
-          {/* Desktop nav */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
             {navItems.map(item => (
               <a key={item.id} href={`#${item.id}`}
-                style={{
-                  fontSize: '12px', fontWeight: 600, letterSpacing: '0.06em', textDecoration: 'none',
-                  color: activeSection === item.id ? '#10b981' : d ? '#666' : '#888',
-                  transition: 'color 0.2s',
-                  textTransform: 'uppercase'
-                }}
+                style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.06em', textDecoration: 'none', color: activeSection === item.id ? '#10b981' : d ? '#666' : '#888', transition: 'color 0.2s', textTransform: 'uppercase' }}
                 onMouseEnter={e => e.currentTarget.style.color = '#10b981'}
                 onMouseLeave={e => e.currentTarget.style.color = activeSection === item.id ? '#10b981' : d ? '#666' : '#888'}
               >{item.label}</a>
@@ -361,27 +391,21 @@ export default function App() {
       </nav>
 
       <main>
-     
-
-{/* ── HERO ── */}
+        {/* ── HERO ── */}
         <section id="home" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: '68px', padding: '68px 2rem 0', overflow: 'hidden', position: 'relative' }}>
-          {/* Background grid */}
           <div style={{ position: 'absolute', inset: 0, backgroundImage: d ? 'radial-gradient(circle at 1px 1px, rgba(16,185,129,0.06) 1px, transparent 0)' : 'radial-gradient(circle at 1px 1px, rgba(16,185,129,0.08) 1px, transparent 0)', backgroundSize: '40px 40px', pointerEvents: 'none' }} />
-          {/* Glow */}
           <div style={{ position: 'absolute', top: '20%', right: '-10%', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 70%)', pointerEvents: 'none', animation: 'pulse-glow 4s ease-in-out infinite' }} />
 
           <div style={{ maxWidth: '1280px', width: '100%', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }}>
-            
-            {/* Hero visual (NOW ON THE LEFT) */}
+
+            {/* Hero photo */}
             <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease: 'easeOut' }}
               style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
               <div style={{ position: 'absolute', inset: '-2rem', background: 'radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%)', animation: 'pulse-glow 3s ease-in-out infinite', pointerEvents: 'none' }} />
               <div style={{ position: 'relative', width: '100%', maxWidth: '420px', aspectRatio: '4/5', borderRadius: '28px', overflow: 'hidden', border: d ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.08)' }}>
-                <img src="/Pic/My_pic.jpg" alt="Yassine Hajib"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(30%)' }} />
+                <img src="/Pic/My_pic.jpg" alt="Yassine Hajib" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(30%)' }} />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(8,8,8,0.6) 0%, transparent 50%)' }} />
               </div>
-              {/* Floating badge */}
               <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                 style={{ position: 'absolute', bottom: '-1.5rem', right: '-1.5rem', padding: '1rem 1.5rem', background: d ? 'rgba(15,15,15,0.95)' : 'rgba(255,255,255,0.95)', backdropFilter: 'blur(20px)', borderRadius: '18px', border: d ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.08)', boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -389,49 +413,64 @@ export default function App() {
                     <Code2 size={22} style={{ color: '#10b981' }} />
                   </div>
                   <div>
-                    <div style={{ fontSize: '1.1rem', fontWeight: 900, color: '#10b981', letterSpacing: '-0.02em' }}> FULL STACK Developer</div>
-                    <div style={{ fontSize: '10px', fontWeight: 700, color: d ? '#f3f3f3' : '#030303', letterSpacing: '0.15em', textTransform: 'uppercase' }}>AI enthusiast </div>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 900, color: '#10b981', letterSpacing: '-0.02em' }}>FULL STACK Developer</div>
+                    <div style={{ fontSize: '10px', fontWeight: 700, color: d ? '#f3f3f3' : '#030303', letterSpacing: '0.15em', textTransform: 'uppercase' }}>AI Enthusiast</div>
                   </div>
                 </div>
               </motion.div>
             </motion.div>
 
-            {/* Text Section (NOW ON THE RIGHT) */}
+            {/* Hero text */}
             <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, ease: 'easeOut' }}>
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
                 style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '100px', border: '1px solid rgba(16,185,129,0.25)', background: 'rgba(16,185,129,0.05)', marginBottom: '2rem' }}>
                 <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', animation: 'pulse-glow 2s infinite' }} />
-                <span style={{ fontSize: '11px', fontWeight: 700, color: '#10b981', letterSpacing: '0.12em', textTransform: 'uppercase' }}> À la recherche d’un Stage d'été  en développement Full Stack ou en Intelligence Artificielle </span>
+                <span style={{ fontSize: '11px', fontWeight: 700, color: '#10b981', letterSpacing: '0.12em', textTransform: 'uppercase' }}>À la recherche d'un Stage d'été en développement Full Stack ou en Intelligence Artificielle</span>
               </motion.div>
 
               <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
                 style={{ fontSize: 'clamp(3.5rem, 7vw, 6rem)', fontWeight: 900, lineHeight: 0.92, letterSpacing: '-0.04em', marginBottom: '1.5rem' }}>
                 YASSINE<br />
-                <span style={{ color: '#10b981', WebkitTextStroke: d ? '0' : '0' }}>HAJIB</span>
+                <span style={{ color: '#10b981' }}>HAJIB</span>
               </motion.h1>
 
               <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
                 style={{ fontSize: '1.15rem', fontWeight: 300, color: d ? '#888' : '#666', marginBottom: '1rem', letterSpacing: '0.01em' }}>
-                Étudiant Ingénieur en Informatique &amp; Réseaux -
-                Passionné Par L'intelligence Artificielle 
+                Étudiant Ingénieur en Informatique &amp; Réseaux —
+                Passionné Par L'intelligence Artificielle
               </motion.p>
-              
+
+              {/* ── HERO BUTTONS ── */}
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
                 style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+
+                {/* Voir projets */}
                 <motion.a whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} href="#projects"
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#10b981', color: '#fff', borderRadius: '14px', fontWeight: 700, fontSize: '14px', textDecoration: 'none', letterSpacing: '0.02em', boxShadow: '0 8px 30px rgba(16,185,129,0.25)' }}>
                   Voir mes Projets <ChevronRight size={16} />
                 </motion.a>
-                <motion.a whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} href="#contact" 
-                  style={{ display: 'inline-flex', scrollBehavior:'smooth', alignItems: 'center', gap: '8px', padding: '14px 28px', background: '#f0eeee', color: d ? '#407a67' : '#333', borderRadius: '14px', fontWeight: 700, fontSize: '14px', textDecoration: 'none', letterSpacing: '0.02em', border: d ? '1px solid rgba(255,255,255,0.1 ,)' : '1px solid rgba(0,0,0,0.12)' }}>
+
+                {/* Me contacter */}
+                <motion.a whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} href="#contact"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: d ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', color: d ? '#ccc' : '#333', borderRadius: '14px', fontWeight: 700, fontSize: '14px', textDecoration: 'none', letterSpacing: '0.02em', border: d ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.12)', transition: 'all 0.2s' }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(16,185,129,0.4)'; e.currentTarget.style.color = '#10b981'; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = d ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.12)'; e.currentTarget.style.color = d ? '#ccc' : '#333'; }}>
                   Me Contacter <Mail size={16} />
                 </motion.a>
+
+                {/* Mon CV — opens viewer modal */}
+                <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+                  onClick={() => setCvOpen(true)}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', background: d ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)', color: d ? '#ccc' : '#444', borderRadius: '14px', fontWeight: 700, fontSize: '14px', border: d ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.12)', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s' }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(16,185,129,0.4)'; e.currentTarget.style.color = '#10b981'; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = d ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.12)'; e.currentTarget.style.color = d ? '#ccc' : '#444'; }}>
+                  <FileText size={16} /> Mon CV
+                </motion.button>
+
               </motion.div>
             </motion.div>
-
           </div>
         </section>
-
 
         {/* ── ABOUT ── */}
         <section id="about" style={{ padding: '8rem 2rem', background: d ? 'rgba(255,255,255,0.015)' : 'rgba(0,0,0,0.02)' }}>
@@ -439,18 +478,18 @@ export default function App() {
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
               <SectionLabel>À Propos</SectionLabel>
               <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: '1.5rem', lineHeight: 1.1 }}>
-               Mon <span style={{ color: '#10b981' }}>Profil</span>
+                Mon <span style={{ color: '#10b981' }}>Profil</span>
               </h2>
               <p style={{ fontSize: '1.05rem', color: d ? '#666' : '#777', lineHeight: 1.8, marginBottom: '2rem' }}>
-               Étudiant ingénieur en troisième année en Informatique et Réseaux , motivé par le développement d’applications
-                web innovantes et l'intelligence artificielle . Doté d’un fort esprit de résolution de problèmes et d’un sens du travail
-              en équipe . Actuellement à la recherche d’un stage en développement Full Stack à partir du 1 er juillet 2026 .
+                Étudiant ingénieur en troisième année en Informatique et Réseaux, motivé par le développement d'applications
+                web innovantes et l'intelligence artificielle. Doté d'un fort esprit de résolution de problèmes et d'un sens du travail
+                en équipe. Actuellement à la recherche d'un stage en développement Full Stack à partir du 1er juillet 2026.
               </p>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 {[
                   { icon: MapPin, label: 'Localisation', value: 'Marrakech, Maroc' },
-                  { icon: Calendar, label: 'Disponibilité', value: ' À partir du 1 er Juillet 2026' },
-                  { icon: Calendar, label: 'Mobilité', value: ' National '},
+                  { icon: Calendar, label: 'Disponibilité', value: 'À partir du 1er Juillet 2026' },
+                  { icon: Calendar, label: 'Mobilité', value: 'National' },
                   { icon: Globe, label: 'Langues', value: 'AR · FR · EN' }
                 ].map(({ icon: Icon, label, value }, i) => (
                   <div key={i} style={{ padding: '1rem 1.25rem', borderRadius: '14px', background: d ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)', border: d ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(0,0,0,0.06)' }}>
@@ -463,7 +502,6 @@ export default function App() {
                 ))}
               </div>
             </motion.div>
-
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 {[
@@ -544,16 +582,12 @@ export default function App() {
                   style={{ borderRadius: '24px', overflow: 'hidden', background: d ? 'rgba(255,255,255,0.025)' : '#fff', border: d ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(0,0,0,0.07)', transition: 'all 0.4s', cursor: 'default' }}
                   onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = `0 24px 60px ${proj.accent}18`; e.currentTarget.style.borderColor = `${proj.accent}33`; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = d ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.07)'; }}>
-                  {/* Image */}
                   <div style={{ aspectRatio: '16/9', overflow: 'hidden', position: 'relative' }}>
                     <img src={proj.image} alt={proj.title}
                       style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease', filter: 'brightness(0.9)' }}
                       onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.06)'}
-                      onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                    />
-                    {/* Gradient overlay */}
+                      onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'} />
                     <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to top, ${d ? '#0f0f0f' : '#fff'}cc 0%, transparent 60%)` }} />
-                    {/* GitHub link */}
                     <div style={{ position: 'absolute', top: '1rem', right: '1rem' }}>
                       <a href={proj.github} target="_blank" rel="noreferrer"
                         style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 14px', borderRadius: '10px', background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', color: '#fff', textDecoration: 'none', fontSize: '12px', fontWeight: 700, border: '1px solid rgba(255,255,255,0.1)', transition: 'all 0.2s' }}
@@ -562,13 +596,11 @@ export default function App() {
                         <Github size={13} /> Code
                       </a>
                     </div>
-                    {/* Accent dot */}
                     <div style={{ position: 'absolute', bottom: '1rem', left: '1.5rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: proj.accent }} />
                       <span style={{ fontSize: '10px', fontWeight: 700, color: 'rgba(255,255,255,0.7)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Projet</span>
                     </div>
                   </div>
-                  {/* Content */}
                   <div style={{ padding: '1.75rem' }}>
                     <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '0.75rem', lineHeight: 1.3, letterSpacing: '-0.01em' }}>{proj.title}</h3>
                     <p style={{ color: d ? '#666' : '#777', lineHeight: 1.7, fontSize: '14px', marginBottom: '1.25rem' }}>{proj.description}</p>
@@ -598,19 +630,15 @@ export default function App() {
                 <motion.div key={idx}
                   initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }}
                   style={{ display: 'flex', gap: '2.5rem', paddingBottom: idx < EDUCATION.length - 1 ? '3rem' : '0', position: 'relative' }}>
-                  {/* Timeline line */}
                   {idx < EDUCATION.length - 1 && (
                     <div style={{ position: 'absolute', left: '23px', top: '48px', bottom: 0, width: '1px', background: d ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.08)' }} />
                   )}
-                  {/* Dot */}
                   <div style={{ flexShrink: 0, width: '46px', height: '46px', borderRadius: '50%', background: idx === 0 ? '#10b981' : d ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', border: idx === 0 ? '3px solid #10b981' : d ? '2px solid rgba(255,255,255,0.1)' : '2px solid rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1, boxShadow: idx === 0 ? '0 0 20px rgba(16,185,129,0.4)' : 'none', marginTop: '2px' }}>
                     {idx === 0 ? <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fff' }} /> : <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: d ? '#444' : '#bbb' }} />}
                   </div>
-                  {/* Content */}
                   <div style={{ flex: 1, padding: '0.25rem 0 0' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
                       <span style={{ fontSize: '11px', fontWeight: 800, color: '#10b981', letterSpacing: '0.15em', textTransform: 'uppercase' }}>{edu.period}</span>
-                      <span style={{ padding: '2px 10px', borderRadius: '100px', fontSize: '10px', fontWeight: 800, background: idx === 0 ? 'rgba(16,185,129,0.1)' : d ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', color: idx === 0 ? '#10b981' : d ? '#555' : '#888', border: idx === 0 ? '1px solid rgba(16,185,129,0.2)' : d ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(0,0,0,0.08)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>{edu.status}</span>
                     </div>
                     <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '4px', letterSpacing: '-0.01em' }}>{edu.school}</h3>
                     <p style={{ color: d ? '#666' : '#888', fontSize: '15px', fontWeight: 500 }}>{edu.degree}</p>
@@ -640,10 +668,9 @@ export default function App() {
                   style={{ textAlign: 'left', width: '100%', borderRadius: '20px', overflow: 'hidden', background: d ? 'rgba(255,255,255,0.025)' : '#fff', border: d ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(0,0,0,0.06)', cursor: 'pointer', transition: 'all 0.3s', padding: 0 }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = `${cert.accentColor}44`; e.currentTarget.style.boxShadow = `0 16px 40px ${cert.accentColor}10`; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = d ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'; e.currentTarget.style.boxShadow = 'none'; }}>
-                  {/* Top color band */}
                   <div style={{ height: '3px', background: `linear-gradient(90deg, ${cert.accentColor}, transparent)` }} />
                   <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', padding: '1.5rem' }}>
-                    <div style={{ flexShrink: 0, width: '56px', height: '56px', borderRadius: '16px', background: cert.bg, border: `1px solid ${cert.accentColor}22`, display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 0.3s' }}>
+                    <div style={{ flexShrink: 0, width: '56px', height: '56px', borderRadius: '16px', background: cert.bg, border: `1px solid ${cert.accentColor}22`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <Award size={26} style={{ color: cert.accentColor }} />
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
@@ -653,7 +680,7 @@ export default function App() {
                       </div>
                       <h4 style={{ fontSize: '14px', fontWeight: 800, lineHeight: 1.3, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>{cert.title}</h4>
                     </div>
-                    <div style={{ flexShrink: 0, width: '36px', height: '36px', borderRadius: '10px', background: d ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }}>
+                    <div style={{ flexShrink: 0, width: '36px', height: '36px', borderRadius: '10px', background: d ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <ZoomIn size={15} style={{ color: d ? '#555' : '#aaa' }} />
                     </div>
                   </div>
@@ -672,12 +699,10 @@ export default function App() {
                 Contactez-<span style={{ color: '#10b981' }}>moi</span>
               </h2>
               <p style={{ color: d ? '#555' : '#888', maxWidth: '480px', margin: '0 auto', lineHeight: 1.7, fontSize: '15px' }}>
-                Je suis disponible pour toute opportunité de stage N’hésitez pas à me contacter .
+                Je suis disponible pour toute opportunité de stage. N'hésitez pas à me contacter.
               </p>
             </div>
-
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 3fr', gap: '2rem' }}>
-              {/* Info */}
               <div style={{ padding: '2.5rem', borderRadius: '24px', background: d ? 'rgba(255,255,255,0.025)' : '#fff', border: d ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(0,0,0,0.07)', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                 {[
                   { icon: Mail, label: 'Email', value: 'yassinehajib.work@gmail.com' },
@@ -707,79 +732,61 @@ export default function App() {
                   ))}
                 </div>
               </div>
-
-              {/* Form */}
               <div style={{ padding: '2.5rem', borderRadius: '24px', background: d ? 'rgba(255,255,255,0.025)' : '#fff', border: d ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(0,0,0,0.07)' }}>
-        {sent ? (
-  /* ── Thank you screen ── */
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: '300px', textAlign: 'center', gap: '1.5rem' }}>
-    <motion.div
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-      style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(16,185,129,0.12)', border: '2px solid rgba(16,185,129,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-    >
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="20 6 9 17 4 12"/>
-      </svg>
-    </motion.div>
-    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-      <h3 style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '0.5rem', color: '#10b981' }}>Message envoyé !</h3>
-      <p style={{ color: d ? '#666' : '#888', fontSize: '15px', lineHeight: 1.6, maxWidth: '320px' }}>
-        Merci <strong style={{ color: d ? '#ccc' : '#333' }}>{form.name || 'pour votre message'}</strong> ! Je vous répondrai dans les plus brefs délais.
-      </p>
-    </motion.div>
-    <motion.button
-      initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
-      whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-      onClick={() => setSent(false)}
-      style={{ padding: '10px 24px', borderRadius: '10px', background: 'rgba(16,185,129,0.1)', color: '#10b981', border: '1px solid rgba(16,185,129,0.25)', cursor: 'pointer', fontWeight: 700, fontSize: '13px', letterSpacing: '0.05em', fontFamily: 'inherit' }}
-    >
-      Envoyer un autre message
-    </motion.button>
-  </div>
-) : (
-  /* ── Form ── */
-  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-      {[
-        { id: 'name', label: 'Nom Complet', type: 'text', placeholder: 'Votre nom…' },
-        { id: 'email', label: 'Adresse Email', type: 'email', placeholder: 'vous@email.com' }
-      ].map(({ id, label, type, placeholder }) => (
-        <div key={id} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <label style={{ fontSize: '10px', fontWeight: 800, color: d ? '#444' : '#aaa', letterSpacing: '0.15em', textTransform: 'uppercase' }}>{label}</label>
-          <input required type={type} value={form[id]} onChange={e => setForm({ ...form, [id]: e.target.value })} placeholder={placeholder}
-            style={{ padding: '14px 16px', borderRadius: '12px', background: d ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)', border: d ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.08)', color: 'inherit', fontSize: '14px', fontWeight: 500, outline: 'none', fontFamily: 'inherit', transition: 'border 0.2s' }}
-            onFocus={e => e.target.style.borderColor = 'rgba(16,185,129,0.5)'}
-            onBlur={e => e.target.style.borderColor = d ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)'} />
-        </div>
-      ))}
-    </div>
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-      <label style={{ fontSize: '10px', fontWeight: 800, color: d ? '#444' : '#aaa', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Message</label>
-      <textarea required rows={5} value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} placeholder="Comment puis-je vous aider ?"
-        style={{ padding: '14px 16px', borderRadius: '12px', background: d ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)', border: d ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.08)', color: 'inherit', fontSize: '14px', fontWeight: 500, outline: 'none', resize: 'none', fontFamily: 'inherit', transition: 'border 0.2s' }}
-        onFocus={e => e.target.style.borderColor = 'rgba(16,185,129,0.5)'}
-        onBlur={e => e.target.style.borderColor = d ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)'} />
-    </div>
-    <motion.button
-      whileHover={{ scale: sending ? 1 : 1.02 }}
-      whileTap={{ scale: sending ? 1 : 0.98 }}
-      type="submit"
-      disabled={sending}
-      style={{ padding: '16px', borderRadius: '14px', background: sending ? '#059669aa' : '#10b981', color: '#fff', fontWeight: 800, fontSize: '14px', letterSpacing: '0.08em', textTransform: 'uppercase', border: 'none', cursor: sending ? 'not-allowed' : 'pointer', boxShadow: '0 8px 24px rgba(16,185,129,0.25)', transition: 'background 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
-      onMouseEnter={e => { if (!sending) e.currentTarget.style.background = '#059669'; }}
-      onMouseLeave={e => { if (!sending) e.currentTarget.style.background = '#10b981'; }}
-    >
-      {sending ? (
-        <>
-          <div style={{ width: '16px', height: '16px', borderRadius: '50%', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', animation: 'spin 0.7s linear infinite' }} />
-          Envoi en cours…
-        </>
-      ) : 'Envoyer le Message →'}
-    </motion.button>
-  </form>
-)}
+                {sent ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: '300px', textAlign: 'center', gap: '1.5rem' }}>
+                    <motion.div initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+                      style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(16,185,129,0.12)', border: '2px solid rgba(16,185,129,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                    </motion.div>
+                    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                      <h3 style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '0.5rem', color: '#10b981' }}>Message envoyé !</h3>
+                      <p style={{ color: d ? '#666' : '#888', fontSize: '15px', lineHeight: 1.6, maxWidth: '320px' }}>
+                        Merci <strong style={{ color: d ? '#ccc' : '#333' }}>{form.name || 'pour votre message'}</strong> ! Je vous répondrai dans les plus brefs délais.
+                      </p>
+                    </motion.div>
+                    <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
+                      whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} onClick={() => setSent(false)}
+                      style={{ padding: '10px 24px', borderRadius: '10px', background: 'rgba(16,185,129,0.1)', color: '#10b981', border: '1px solid rgba(16,185,129,0.25)', cursor: 'pointer', fontWeight: 700, fontSize: '13px', letterSpacing: '0.05em', fontFamily: 'inherit' }}>
+                      Envoyer un autre message
+                    </motion.button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                      {[
+                        { id: 'name', label: 'Nom Complet', type: 'text', placeholder: 'Votre nom…' },
+                        { id: 'email', label: 'Adresse Email', type: 'email', placeholder: 'vous@email.com' }
+                      ].map(({ id, label, type, placeholder }) => (
+                        <div key={id} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                          <label style={{ fontSize: '10px', fontWeight: 800, color: d ? '#444' : '#aaa', letterSpacing: '0.15em', textTransform: 'uppercase' }}>{label}</label>
+                          <input required type={type} value={form[id]} onChange={e => setForm({ ...form, [id]: e.target.value })} placeholder={placeholder}
+                            style={{ padding: '14px 16px', borderRadius: '12px', background: d ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)', border: d ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.08)', color: 'inherit', fontSize: '14px', fontWeight: 500, outline: 'none', fontFamily: 'inherit', transition: 'border 0.2s' }}
+                            onFocus={e => e.target.style.borderColor = 'rgba(16,185,129,0.5)'}
+                            onBlur={e => e.target.style.borderColor = d ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)'} />
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <label style={{ fontSize: '10px', fontWeight: 800, color: d ? '#444' : '#aaa', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Message</label>
+                      <textarea required rows={5} value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} placeholder="Comment puis-je vous aider ?"
+                        style={{ padding: '14px 16px', borderRadius: '12px', background: d ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)', border: d ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.08)', color: 'inherit', fontSize: '14px', fontWeight: 500, outline: 'none', resize: 'none', fontFamily: 'inherit', transition: 'border 0.2s' }}
+                        onFocus={e => e.target.style.borderColor = 'rgba(16,185,129,0.5)'}
+                        onBlur={e => e.target.style.borderColor = d ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)'} />
+                    </div>
+                    <motion.button whileHover={{ scale: sending ? 1 : 1.02 }} whileTap={{ scale: sending ? 1 : 0.98 }}
+                      type="submit" disabled={sending}
+                      style={{ padding: '16px', borderRadius: '14px', background: sending ? '#059669aa' : '#10b981', color: '#fff', fontWeight: 800, fontSize: '14px', letterSpacing: '0.08em', textTransform: 'uppercase', border: 'none', cursor: sending ? 'not-allowed' : 'pointer', boxShadow: '0 8px 24px rgba(16,185,129,0.25)', transition: 'background 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
+                      onMouseEnter={e => { if (!sending) e.currentTarget.style.background = '#059669'; }}
+                      onMouseLeave={e => { if (!sending) e.currentTarget.style.background = '#10b981'; }}>
+                      {sending ? (
+                        <><div style={{ width: '16px', height: '16px', borderRadius: '50%', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', animation: 'spin 0.7s linear infinite' }} /> Envoi en cours…</>
+                      ) : 'Envoyer le Message →'}
+                    </motion.button>
+                  </form>
+                )}
               </div>
             </div>
           </div>
@@ -811,7 +818,6 @@ export default function App() {
   );
 }
 
-// ── Helper ──
 function SectionLabel({ children, center = false }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px', justifyContent: center ? 'center' : 'flex-start' }}>
