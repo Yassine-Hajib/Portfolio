@@ -140,7 +140,7 @@ function CVModal({ isOpen, onClose }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', background: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(20px)' }}
+          style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2vh 1rem', background: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(20px)' }}
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.92, y: 30 }}
@@ -148,7 +148,7 @@ function CVModal({ isOpen, onClose }) {
             exit={{ opacity: 0, scale: 0.92, y: 30 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             onClick={(e) => e.stopPropagation()}
-            style={{ width: '100%', maxWidth: '860px', background: '#111', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '28px', overflow: 'hidden', boxShadow: '0 40px 80px rgba(0,0,0,0.7)', display: 'flex', flexDirection: 'column', maxHeight: '92vh' }}
+            style={{ width: '100%', maxWidth: '1000px', background: '#111', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 40px 80px rgba(0,0,0,0.7)', display: 'flex', flexDirection: 'column', height: '96vh', maxHeight: '96vh' }}
           >
             {/* Top accent line */}
             <div style={{ height: '3px', background: 'linear-gradient(90deg, #10b981, transparent)', flexShrink: 0 }} />
@@ -186,10 +186,10 @@ function CVModal({ isOpen, onClose }) {
             </div>
 
             {/* PDF Viewer */}
-            <div style={{ flex: 1, overflow: 'hidden', background: '#0a0a0a', minHeight: '600px' }}>
+            <div style={{ flex: 1, overflow: 'hidden', background: '#0a0a0a' }}>
               <iframe
-                src="/YassineHajib_cv.pdf#toolbar=0&navpanes=0"
-                style={{ width: '100%', height: '100%', minHeight: '600px', border: 'none' }}
+                src="/YassineHajib_cv.pdf#toolbar=0&navpanes=0&view=FitH"
+                style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
                 title="Yassine Hajib CV"
               />
             </div>
@@ -324,7 +324,8 @@ export default function App() {
 
   useEffect(() => {
     document.body.style.overflow = (selectedCert || cvOpen) ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    document.documentElement.style.overflow = (selectedCert || cvOpen) ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; document.documentElement.style.overflow = ''; };
   }, [selectedCert, cvOpen]);
 
   const handleSubmit = (e) => {
@@ -374,17 +375,23 @@ export default function App() {
             style={{ fontFamily: "'Space Mono', monospace", fontWeight: 700, fontSize: '1.1rem', letterSpacing: '-0.03em', textDecoration: 'none', color: 'inherit' }}>
             YASSINE<span style={{ color: '#10b981' }}> HAJIB</span>
           </motion.a>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
             {navItems.map(item => (
               <a key={item.id} href={`#${item.id}`}
-                style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.06em', textDecoration: 'none', color: activeSection === item.id ? '#10b981' : d ? '#666' : '#888', transition: 'color 0.2s', textTransform: 'uppercase' }}
+                style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.06em', textDecoration: 'none', color: activeSection === item.id ? '#10b981' : d ? '#666' : '#888', transition: 'color 0.2s', textTransform: 'uppercase' }}
                 onMouseEnter={e => e.currentTarget.style.color = '#10b981'}
                 onMouseLeave={e => e.currentTarget.style.color = activeSection === item.id ? '#10b981' : d ? '#666' : '#888'}
               >{item.label}</a>
             ))}
             <button onClick={() => setIsDark(!d)}
-              style={{ padding: '8px', borderRadius: '10px', background: d ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', border: 'none', cursor: 'pointer', color: d ? '#aaa' : '#666', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }}>
+              style={{ padding: '8px', borderRadius: '10px', background: d ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)', border: 'none', cursor: 'pointer', color: d ? '#aaa' : '#666', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s', flexShrink: 0 }}>
               {d ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+            <button onClick={() => setCvOpen(true)}
+              style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 14px', borderRadius: '10px', background: '#10b981', border: 'none', color: '#fff', cursor: 'pointer', fontWeight: 800, fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: 'inherit', transition: 'all 0.2s', flexShrink: 0, whiteSpace: 'nowrap' }}
+              onMouseEnter={e => e.currentTarget.style.background = '#059669'}
+              onMouseLeave={e => e.currentTarget.style.background = '#10b981'}>
+              <Download size={13} /> Mon CV
             </button>
           </div>
         </div>
