@@ -13,7 +13,7 @@ const PROJECTS = [
     description: "Assistance juridique basée sur l'intelligence artificielle permettant d'analyser les questions des utilisateurs et de fournir des réponses fondées sur les articles du droit marocain.",
     tags: ["Python", "FastAPI", "NLP", "RAG", "LLM", "Chroma", "PostgreSQL"],
     github: "https://github.com/Yassine-Hajib",
-    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+    image: "/Pic/Legal_IA.jpg",
     accent: "#10b981"
   },
   {
@@ -459,7 +459,7 @@ export default function App() {
                 Mon <span style={{ color: '#10b981' }}>Profil</span>
               </h2>
               <p style={{ fontSize: isMobile ? '0.95rem' : '1.05rem', color: d ? '#666' : '#777', lineHeight: 1.8, marginBottom: '1.75rem' }}>
-                Étudiant ingénieur en troisième année en Informatique et Réseaux, motivé par le développement d'applications web innovantes et l'intelligence artificielle. Doté d'un fort esprit de résolution de problèmes et d'un sens du travail en équipe. Actuellement à la recherche d'un stage en développement Full Stack à partir du 1er juillet 2026.
+                Étudiant ingénieur en troisième année en Informatique et Réseaux, motivé par le développement d'applications web innovantes et l'intelligence Artificielle. Doté d'un fort esprit de résolution de problèmes et d'un sens du travail en équipe. Actuellement à la recherche d'un stage en développement Full Stack ou en Intellegence Artificielle à partir du 1er juillet 2026.
               </p>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                 {[
