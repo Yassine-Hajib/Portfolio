@@ -47,10 +47,11 @@ const SKILLS = [
   { category: "Langages", items: ["Python", "Java", "C", "C++", "JavaScript", "PHP"], icon: Terminal },
   { category: "Web & Mobile", items: ["React", "Laravel", "Flutter", "HTML", "CSS"], icon: Globe },
   { category: "Backend & API", items: ["FastAPI", "RESTful APIs", "Pydantic"], icon: Layers },
-  { category: "Bases de données", items: ["MySQL", "Oracle", "SQL Server", "PostgreSQL"], icon: Database },
-  { category: "Outils & OS", items: ["Git", "GitHub", "Linux", "Windows"], icon: Code2 },
-  { category: "Intelligence Artificielle", items: ["NLP", "RAG", "Vector Embedding", "LLM Integration"], icon: Layers },
-  { category: "Conception & Algorithmiques", items: ["UML", "Merise", "Structures de données", "Complexité"], icon: Globe }
+  { category: "Bases de données", items: ["SQL","MySQL", "Oracle", "SQL Server", "PostgreSQL"], icon: Database },
+  { category: "Outils", items: ["Git", "GitHub"], icon: Code2 },
+  { category: "Intelligence Artificielle", items: ["NLP", " Architecture RAG ", "Vector Embedding", "LLM Integration"], icon: Layers },
+  { category: "Conception & Algorithmiques", items: ["UML", "Merise", "Structures de données", "Complexité","Récursivité"], icon: Globe },
+  { category: "Systèmes d'exploitation", items: ["Lunix","Windows"], icon: Code2 }
 ];
 
 const EDUCATION = [
