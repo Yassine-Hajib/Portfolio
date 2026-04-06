@@ -7,6 +7,14 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
+function HuggingFaceIcon({ size = 20 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-1.5 6.5a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm-5.25 4.25c.28-.28.735-.28 1.015 0 .47.47 1.065.75 1.735.75s1.265-.28 1.735-.75c.28-.28.735-.28 1.015 0s.28.735 0 1.015A4.47 4.47 0 0112 15.5a4.47 4.47 0 01-3.75-1.735c-.28-.28-.28-.735 0-1.015z"/>
+    </svg>
+  );
+}
+
 const PROJECTS = [
   {
     title: "LegalAI — Plateforme d'Analyse Juridique par IA",
@@ -37,6 +45,7 @@ const PROJECTS = [
     description: "Plateforme d'analyse algorithmique permettant de mesurer et comparer les performances d'implémentations récursives et itératives à l'aide de métriques avancées.",
     tags: ["Python", "React", "PostgreSQL", "FastAPI"],
     github: "https://github.com/Yassine-Hajib",
+    demo: "https://algorithm-benchmarking-engine.vercel.app",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
     accent: "#8b5cf6"
   }
@@ -68,7 +77,6 @@ const CERTIFICATES = [
   { title: "Front End", issuer: "Johns Hopkins University", image: "/certificates/Front.jpg", year: "2024", accentColor: "#0fe016", bg: "rgba(139,92,246,0.08)" }
 ];
 
-// ── useWindowWidth hook ──
 function useWindowWidth() {
   const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
   useEffect(() => {
@@ -79,7 +87,6 @@ function useWindowWidth() {
   return width;
 }
 
-// ── CV Modal ──
 function CVModal({ isOpen, onClose }) {
   useEffect(() => {
     if (!isOpen) return;
@@ -140,7 +147,6 @@ function CVModal({ isOpen, onClose }) {
   );
 }
 
-// ── Certificate Modal ──
 function CertificateModal({ cert, onClose }) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [imgError, setImgError] = useState(false);
@@ -215,7 +221,6 @@ function CertificateModal({ cert, onClose }) {
   );
 }
 
-// ── Main App ──
 export default function App() {
   const [isDark, setIsDark] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
@@ -269,6 +274,12 @@ export default function App() {
     { id: 'education', label: 'Formation' },
     { id: 'certificates', label: 'Certificats' },
     { id: 'contact', label: 'Contact' },
+  ];
+
+  const socialLinks = [
+    { href: 'https://github.com/Yassine-Hajib', icon: Github },
+    { href: 'https://www.linkedin.com/in/yassine-hajib-55a307300/', icon: Linkedin },
+    { href: 'https://huggingface.co/Yass-ine', icon: HuggingFaceIcon },
   ];
 
   return (
@@ -333,7 +344,6 @@ export default function App() {
             YASSINE<span style={{ color: '#10b981' }}> HAJIB</span>
           </motion.a>
 
-          {/* Desktop nav */}
           {!isTablet && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
               {navItems.map(item => (
@@ -357,7 +367,6 @@ export default function App() {
             </div>
           )}
 
-          {/* Mobile nav buttons */}
           {isTablet && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <button onClick={() => setCvOpen(true)}
@@ -385,7 +394,6 @@ export default function App() {
 
           <div style={{ maxWidth: '1280px', width: '100%', margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '3rem' : '5rem', alignItems: 'center' }}>
 
-            {/* Photo — shown second on mobile */}
             <motion.div initial={{ opacity: 0, x: isMobile ? 0 : -40, y: isMobile ? 20 : 0 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ duration: 1, ease: 'easeOut' }}
               style={{ position: 'relative', display: 'flex', justifyContent: 'center', order: isMobile ? 2 : 1 }}>
               <div style={{ position: 'absolute', inset: '-1.5rem', background: 'radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%)', animation: 'pulse-glow 3s ease-in-out infinite', pointerEvents: 'none' }} />
@@ -407,7 +415,6 @@ export default function App() {
               </motion.div>
             </motion.div>
 
-            {/* Text — shown first on mobile */}
             <motion.div initial={{ opacity: 0, x: isMobile ? 0 : 40, y: isMobile ? -20 : 0 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ duration: 0.8, ease: 'easeOut' }}
               style={{ order: isMobile ? 1 : 2, paddingTop: isMobile ? '1rem' : '0' }}>
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
@@ -559,13 +566,22 @@ export default function App() {
                       onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
                       onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'} />
                     <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to top, ${d ? '#0f0f0f' : '#fff'}cc 0%, transparent 60%)` }} />
-                    <div style={{ position: 'absolute', top: '0.875rem', right: '0.875rem' }}>
+                    {/* Buttons top-right */}
+                    <div style={{ position: 'absolute', top: '0.875rem', right: '0.875rem', display: 'flex', gap: '6px' }}>
                       <a href={proj.github} target="_blank" rel="noreferrer"
                         style={{ display: 'flex', alignItems: 'center', gap: '5px', padding: '7px 12px', borderRadius: '9px', background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', color: '#fff', textDecoration: 'none', fontSize: '11px', fontWeight: 700, border: '1px solid rgba(255,255,255,0.1)', transition: 'all 0.2s' }}
                         onMouseEnter={e => e.currentTarget.style.background = 'rgba(16,185,129,0.8)'}
                         onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,0,0,0.6)'}>
                         <Github size={12} /> Code
                       </a>
+                      {proj.demo && (
+                        <a href={proj.demo} target="_blank" rel="noreferrer"
+                          style={{ display: 'flex', alignItems: 'center', gap: '5px', padding: '7px 12px', borderRadius: '9px', background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(10px)', color: '#fff', textDecoration: 'none', fontSize: '11px', fontWeight: 700, border: '1px solid rgba(255,255,255,0.1)', transition: 'all 0.2s' }}
+                          onMouseEnter={e => e.currentTarget.style.background = 'rgba(99,102,241,0.8)'}
+                          onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,0,0,0.6)'}>
+                          <Globe size={12} /> Demo
+                        </a>
+                      )}
                     </div>
                     <div style={{ position: 'absolute', bottom: '0.875rem', left: '1.25rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: proj.accent }} />
@@ -689,7 +705,7 @@ export default function App() {
                   </div>
                 ))}
                 <div style={{ display: 'flex', gap: '8px', marginTop: 'auto' }}>
-                  {[{ href: 'https://github.com/Yassine-Hajib', icon: Github }, { href: 'https://www.linkedin.com/in/yassine-hajib-55a307300/', icon: Linkedin }].map(({ href, icon: Icon }, i) => (
+                  {socialLinks.map(({ href, icon: Icon }, i) => (
                     <motion.a key={i} whileHover={{ y: -3 }} href={href} target="_blank" rel="noreferrer"
                       style={{ padding: '12px', borderRadius: '12px', background: d ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)', border: d ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.07)', color: d ? '#666' : '#999', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }}
                       onMouseEnter={e => { e.currentTarget.style.color = '#10b981'; e.currentTarget.style.borderColor = 'rgba(16,185,129,0.3)'; }}
@@ -772,7 +788,7 @@ export default function App() {
             © {new Date().getFullYear()} Yassine Hajib — Tous droits réservés
           </div>
           <div style={{ display: 'flex', gap: '1rem' }}>
-            {[{ href: 'https://github.com/Yassine-Hajib', icon: Github }, { href: 'https://www.linkedin.com/in/yassine-hajib-55a307300/', icon: Linkedin }].map(({ href, icon: Icon }, i) => (
+            {socialLinks.map(({ href, icon: Icon }, i) => (
               <a key={i} href={href} target="_blank" rel="noreferrer"
                 style={{ color: d ? '#444' : '#bbb', textDecoration: 'none', transition: 'color 0.2s', display: 'flex' }}
                 onMouseEnter={e => e.currentTarget.style.color = '#10b981'}
