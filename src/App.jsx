@@ -74,7 +74,7 @@ const CERTIFICATES = [
   { title: "Git & GitHub — Version Control", issuer: "Google", image: "/certificates/Git&GitHub.png", year: "2024", accentColor: "#b91010", bg: "rgba(16,185,129,0.08)" },
   { title: "The Unix Workbench", issuer: "Johns Hopkins University", image: "/certificates/Unix.png", year: "2025", accentColor: "#0fe016", bg: "rgba(139,92,246,0.08)" },
   { title: "Gitex Masterclasses 2024", issuer: "Gitex", image: "/certificates/Gitex.png", year: "2024", accentColor: "#e80a51", bg: "rgba(139,92,246,0.08)" },
-  { title: "SoftwareDesign & ProjectMAnagement", issuer: " Hong Kong University Of Science  and Technology", image: "/certificates/SoftwareDesign.jpg", year: "2024", accentColor: "#0fe016", bg: "rgba(139,92,246,0.08)" }
+  { title: "SoftwareDesign & ProjectMAnagement", issuer: " Hong Kong University Of Science  and Technology", image: "/certificates/SoftwareDesign.png", year: "2024", accentColor: "#0fe016", bg: "rgba(139,92,246,0.08)" }
 ];
 
 function useWindowWidth() {
